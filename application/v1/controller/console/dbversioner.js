@@ -10,19 +10,22 @@ const STAR_COUNT = 80;
 function processSQLFile(fileName) {
     // Extract SQL queries from files. Assumes no ';' in the fileNames
     const queries = fs
-        .readFileSync(fileName).toString()
-        .replace(/(\r\n|\n|\r)/gm,' ') // remove newlines
+        .readFileSync(fileName)
+        .toString()
+        .replace(/(\r\n|\n|\r)/gm, ' ') // remove newlines
         .replace(/\s+/g, ' ') // excess white space
         .split(';') // split into all statements
         .map(Function.prototype.call, String.prototype.trim)
-        .filter(el => {return el.length !== 0}); // remove any empty ones
+        .filter((el) => {
+            return el.length !== 0;
+        }); // remove any empty ones
 
     return queries;
 }
 
 const _get_stars = () => {
     return '*'.repeat(STAR_COUNT);
-}
+};
 
 module.exports.applyVersion = async () => {
     const dir = path.join(process.cwd(), VERSIONS_DIRECTORY);
@@ -32,15 +35,15 @@ module.exports.applyVersion = async () => {
         password: process.env.POSTGRES_PASSWORD,
         db: process.env.POSTGRES_DB,
         port: process.env.POSTGRES_PORT,
-        host: process.env.POSTGRES_HOST
+        host: process.env.POSTGRES_HOST,
     });
 
     let total_query_count = 0;
 
-    for(const [index, file] of files.entries()) {
+    for (const [index, file] of files.entries()) {
         const queries = processSQLFile(`${dir}/${file}`);
         console.log('\n', _get_stars(), `\n\n\tStarting Queries on migration ${index + 1}...\n\n`, _get_stars());
-        for(const _query of queries) {
+        for (const _query of queries) {
             console.log(`\nEXECUTING QUERY: ${_query}`);
             await query(db_connection, _query);
             total_query_count++;
@@ -48,5 +51,10 @@ module.exports.applyVersion = async () => {
         }
     }
 
-    console.log('\n', _get_stars(), `\n\n\tDB migrations successful, total migrations: ${files.length}, total operations: ${total_query_count}\n\n`, _get_stars());
-}
+    console.log(
+        '\n',
+        _get_stars(),
+        `\n\n\tDB migrations successful, total migrations: ${files.length}, total operations: ${total_query_count}\n\n`,
+        _get_stars()
+    );
+};
