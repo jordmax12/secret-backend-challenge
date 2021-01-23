@@ -4,8 +4,9 @@
   "description": "Small API for technical assessment.",
   "main": "application/v1/controller/server.js",
   "scripts": {
-    "start": "concurrently \"docker-compose -f aws/local/postgres.yml up -d\" \"node application/v1/controller/server.js\"",
+    "start": "concurrently \"docker-compose -f local/postgres.yml up -d\" \"node application/v1/controller/server.js\"",
     "hydrate": "node -e 'require(\"./application/v1/controller/console/dbversioner\").applyVersion()'",
+    "lint": "eslint application/**",
     "test": "mocha"
   },
   "author": "",
@@ -59,7 +60,7 @@
         "warn",
         {
           "printWidth": 120,
-          "tabWidth": 2,
+          "tabWidth": 4,
           "singleQuote": true,
           "bracketSpacing": false,
           "arrowParens": "always"
