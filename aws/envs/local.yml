@@ -1,0 +1,8 @@
+environment:
+    SERVICE: ${self:service}
+    STACK: ${self:provider.stackTags.name}
+    POSTGRES_DB: test
+    POSTGRES_USERNAME: test
+    POSTGRES_PASSWORD: test
+    POSTGRES_HOST: localhost
+    POSTGRES_PORT: 5432

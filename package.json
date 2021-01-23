@@ -1,0 +1,81 @@
+{
+  "name": "back-end-technical",
+  "version": "1.0.0",
+  "description": "Small API for technical assessment.",
+  "main": "application/v1/controller/server.js",
+  "scripts": {
+    "start": "concurrently \"docker-compose -f aws/local/postgres.yml up -d\" \"node application/v1/controller/server.js\"",
+    "hydrate": "node -e 'require(\"./application/v1/controller/console/dbversioner\").applyVersion()'",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "moment": "^2.24.0",
+    "pg": "^8.5.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-almost": "^1.0.1",
+    "chai-http": "^4.3.0",
+    "concurrently": "^5.3.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "run-func": "^1.0.5"
+  },
+  "engines": {
+    "node": ">=10.13"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "mocha": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 8
+    },
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "no-console": "off",
+      "prettier/prettier": [
+        "warn",
+        {
+          "printWidth": 120,
+          "tabWidth": 2,
+          "singleQuote": true,
+          "bracketSpacing": false,
+          "arrowParens": "always"
+        }
+      ],
+      "eqeqeq": "error",
+      "global-require": "off",
+      "no-unused-expressions": "off",
+      "import/no-dynamic-require": "off",
+      "no-param-reassign": "off",
+      "no-multi-assign": "off",
+      "no-plusplus": "off",
+      "no-await-in-loop": "off",
+      "no-restricted-syntax": "off",
+      "no-underscore-dangle": "off",
+      "camelcase": "off"
+    }
+  }
+}

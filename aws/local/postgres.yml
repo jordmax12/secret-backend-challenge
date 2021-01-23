@@ -1,0 +1,19 @@
+version: '3'
+services:
+    localhost:
+        image: postgres
+        # command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        ports:
+            - "5432:5432"
+        expose:
+            - "5432"
+        environment:
+            # user is root
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: test
+        volumes:
+          - database-data:/var/lib/postgresql/data/
+volumes:
+  database-data: # named volumes can be managed easier using docker-compose
