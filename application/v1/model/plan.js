@@ -10,7 +10,7 @@ const _getConnection = () => {
     });
 
     return dbConnection;
-}
+};
 
 const getMostRecentByLengthRush = (rollLength) => {
     return `
@@ -29,8 +29,8 @@ const getMostRecentByLengthRush = (rollLength) => {
         ) AS t
         WHERE t.total_roll_length <= ${rollLength}
         ORDER BY t.rush DESC, t.order_date ASC
-    `
-}
+    `;
+};
 
 const getMostRecentByLengthNoRush = (rollLength) => {
     return `
@@ -50,8 +50,8 @@ const getMostRecentByLengthNoRush = (rollLength) => {
         ) AS t
         WHERE t.total_roll_length <= ${rollLength}
         ORDER BY t.order_date;
-    `
-}
+    `;
+};
 
 const getNextRunnerQueryBuilder = (after_order_date, offset) => {
     return `
@@ -62,17 +62,17 @@ const getNextRunnerQueryBuilder = (after_order_date, offset) => {
         AND size = '2.5x7'
         AND orders.order_date > '${after_order_date}'
         LIMIT 1 OFFSET ${offset}
-    `
-}
+    `;
+};
 
 exports.getNextRunner = async (after_order_date, offset = 0) => {
     const connection = _getConnection();
     const queryString = getNextRunnerQueryBuilder(after_order_date, offset);
-    return query(connection, queryString);    
-}
+    return query(connection, queryString);
+};
 
 exports.getMostRecentOrdersByRollLength = async (rollLength, rush) => {
     const connection = _getConnection();
     const queryString = rush ? getMostRecentByLengthRush(rollLength) : getMostRecentByLengthNoRush(rollLength);
-    return query(connection, queryString);    
-}
+    return query(connection, queryString);
+};

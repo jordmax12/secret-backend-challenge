@@ -23,6 +23,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "chai-almost": "^1.0.1",
     "chai-http": "^4.3.0",
@@ -46,8 +47,12 @@
       "mocha": true
     },
     "parserOptions": {
-      "ecmaVersion": 8
+      "ecmaVersion": 8,
+      "ecmaFeatures": {
+        "experimentalObjectRestSpread": true
+      }
     },
+    "parser": "babel-eslint",
     "plugins": [
       "prettier"
     ],

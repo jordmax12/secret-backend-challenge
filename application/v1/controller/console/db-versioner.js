@@ -9,18 +9,16 @@ const STAR_COUNT = 80;
 
 function processSQLFile(fileName) {
     // Extract SQL queries from files. Assumes no ';' in the fileNames
-    let queries = fs
-        .readFileSync(fileName)
-        .toString()
+    let queries = fs.readFileSync(fileName).toString();
 
-    let DELIM = ';'
+    let DELIM = ';';
     // we will treat this migration as if its setting up stored procedures.
     // in a production setting, it might be good to try to not limit the user
     // to a migration file only being stored procedures or any other queries, but for
     // now this will have to do for the sake of time.
-    if(queries.indexOf('CREATE OR REPLACE PROCEDURE') > -1) {
-        DELIM = '$BODY$;'
-    } 
+    if (queries.indexOf('CREATE OR REPLACE PROCEDURE') > -1) {
+        DELIM = '$BODY$;';
+    }
 
     queries = queries
         .replace(/(\r\n|\n|\r)/gm, ' ') // remove newlines
@@ -30,7 +28,7 @@ function processSQLFile(fileName) {
         .filter((el) => {
             return el.length !== 0;
         }) // remove any empty ones
-        .map(query => query + DELIM) // add back $BODY$ or ;
+        .map((_query) => _query + DELIM); // add back $BODY$ or ;
     return queries;
 }
 
@@ -50,7 +48,7 @@ module.exports.applyVersion = async () => {
     });
 
     let total_query_count = 0;
-    
+
     for (const [index, file] of files.entries()) {
         const queries = processSQLFile(`${dir}/${file}`);
         console.log('\n', _get_stars(), `\n\n\tStarting Queries on migration ${index + 1}...\n\n`, _get_stars());

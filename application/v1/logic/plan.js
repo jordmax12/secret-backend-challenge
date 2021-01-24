@@ -6,7 +6,7 @@ class Plan {
         this._plan = {
             roll_id: planObj.roll_id || uuidv4(),
             length: planObj.length || null,
-            plan: planObj.plan || []
+            plan: planObj.plan || [],
         };
     }
 
@@ -32,35 +32,35 @@ class Plan {
 
     addToPlan(planItem) {
         const newPlanItem = new PlanItem(planItem);
-        this._plan.plan.push(newPlanItem.export())
+        this._plan.plan.push(newPlanItem.export());
     }
 
     overwritePlan(planItems) {
-        this._plan.plan = planItems.map(planItem => new PlanItem(planItem));
+        this._plan.plan = planItems.map((planItem) => new PlanItem(planItem));
     }
 
-    _sortPlanRush() {
+    // _sortPlanRush() {
 
-    }
+    // }
 
-    _sortPlan() {
+    // _sortPlan() {
 
-    }
+    // }
 
-    sortPlan() {
-        
-    }
+    // sortPlan() {
+
+    // }
 
     export() {
-        const { plan } = this._plan;
-        const exportPlan = { ...this._plan, plan: [] };
+        const _planObj = this._plan;
+        const exportPlan = {..._planObj, plan: []};
         // Not necessarily needed, but just to be sure we
         // funnel all planItems through the PlanItem class
         // before exporting is a good idea.
-        plan.forEach(_planItem => {
-            const newPlanItem = new PlanItem(planItem);
-            exportPlan['plan'].push(newPlanItem.export())
-        })
+        _planObj.plan.forEach((_planItem) => {
+            const newPlanItem = new PlanItem(_planItem);
+            exportPlan.plan.push(newPlanItem.export());
+        });
 
         return exportPlan;
     }
