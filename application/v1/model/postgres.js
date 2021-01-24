@@ -19,6 +19,10 @@ exports.getConnection = (config) => {
     throw new Error(`Missing required properties: ${valid.toString()}`);
 };
 
+exports.queryBuilder = () => {
+    
+}
+
 exports.query = (connection, query) =>
     new Promise((resolve) => {
         const client = new Client(connection);

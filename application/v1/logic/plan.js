@@ -35,6 +35,22 @@ class Plan {
         this._plan.plan.push(newPlanItem.export())
     }
 
+    overwritePlan(planItems) {
+        this._plan.plan = planItems.map(planItem => new PlanItem(planItem));
+    }
+
+    _sortPlanRush() {
+
+    }
+
+    _sortPlan() {
+
+    }
+
+    sortPlan() {
+        
+    }
+
     export() {
         const { plan } = this._plan;
         const exportPlan = { ...this._plan, plan: [] };

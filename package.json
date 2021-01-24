@@ -5,7 +5,7 @@
   "main": "application/v1/controller/server.js",
   "scripts": {
     "start": "concurrently \"docker-compose -f local/postgres.yml up -d\" \"node application/v1/controller/server.js\"",
-    "hydrate": "node -e 'require(\"./application/v1/controller/console/dbversioner\").applyVersion()'",
+    "hydrate": "node -e 'require(\"./application/v1/controller/console/db-versioner\").applyVersion()'",
     "lint": "eslint application/**",
     "lint-fix": "eslint --fix application/**",
     "test": "mocha"
