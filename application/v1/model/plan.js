@@ -22,14 +22,14 @@ const getMostRecentByLengthRush = (rollLength) => {
                 component.size,
                 line_item.sku,
                 line_item.rush,
-                SUM(line_item_length) OVER (ORDER BY line_item.id, line_item.rush ASC, orders.order_date) AS total_roll_length
+                SUM(line_item_length) OVER (ORDER BY line_item.rush DESC NULLS LAST, line_item.id, orders.order_date) AS total_roll_length
             FROM line_item
             INNER JOIN "order" orders ON line_item.order_id = orders.id
             INNER JOIN component ON component.line_item_id = line_item.id
             WHERE orders.cancelled = false
         ) AS t
         WHERE t.total_roll_length <= ${rollLength}
-        ORDER BY t.rush DESC, t.order_date ASC
+        ORDER BY t.rush DESC NULLS LAST, t.order_date ASC
     `;
 };
 
