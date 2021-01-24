@@ -12,7 +12,7 @@ const _getConnection = () => {
     return dbConnection;
 }
 
-const getMostRecentByLengthRush = (roll_length) => {
+const getMostRecentByLengthRush = (rollLength) => {
     return `
         SELECT * FROM (
             SELECT
@@ -27,12 +27,12 @@ const getMostRecentByLengthRush = (roll_length) => {
             INNER JOIN component ON component.line_item_id = line_item.id
             WHERE orders.cancelled = false
         ) AS t
-        WHERE t.total_roll_length <= ${roll_length}
+        WHERE t.total_roll_length <= ${rollLength}
         ORDER BY t.rush DESC, t.order_date ASC
     `
 }
 
-const getMostRecentByLengthNoRush = (roll_length) => {
+const getMostRecentByLengthNoRush = (rollLength) => {
     return `
         SELECT * FROM (
             SELECT
@@ -48,7 +48,7 @@ const getMostRecentByLengthNoRush = (roll_length) => {
             WHERE orders.cancelled = false
             AND line_item.rush = false
         ) AS t
-        WHERE t.total_roll_length <= ${roll_length}
+        WHERE t.total_roll_length <= ${rollLength}
         ORDER BY t.order_date;
     `
 }
@@ -71,8 +71,8 @@ exports.getNextRunner = async (after_order_date, offset = 0) => {
     return query(connection, queryString);    
 }
 
-exports.getMostRecentOrdersByRollLength = async (roll_length, rush) => {
+exports.getMostRecentOrdersByRollLength = async (rollLength, rush) => {
     const connection = _getConnection();
-    const queryString = rush ? getMostRecentByLengthRush(roll_length) : getMostRecentByLengthNoRush(roll_length);
+    const queryString = rush ? getMostRecentByLengthRush(rollLength) : getMostRecentByLengthNoRush(rollLength);
     return query(connection, queryString);    
 }
