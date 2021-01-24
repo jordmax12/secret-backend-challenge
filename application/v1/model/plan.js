@@ -70,6 +70,7 @@ const getNextRunnerQueryBuilder = (after_order_date, offset) => {
 exports.getNextRunner = async (after_order_date, offset = 0) => {
     const connection = _getConnection();
     const queryString = getNextRunnerQueryBuilder(after_order_date, offset);
+    console.log('logging queryString', queryString);
     return query(connection, queryString);
 };
 

@@ -5,7 +5,7 @@ const moment = require('moment');
 exports.getPlan = async (rollLength, rush = false) => {
     let planItems = await getMostRecentOrdersByRollLength(rollLength, rush);
     // need to take in account total length
-    const plan = new PlanLogic({ length: rollLength });
+    const plan = new PlanLogic({ length: planItems[planItems.length - 1].total_roll_length });
     for(const planItem of planItems) {
         const { id, order_date, rush, size, sku  } = planItem;
         plan.addToPlan({

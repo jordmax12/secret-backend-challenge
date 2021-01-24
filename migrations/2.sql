@@ -1,3 +1,3 @@
 insert into "order" (id, order_number, order_date, cancelled) values (7, 2567, '2020-10-18 19:25:00.000000', 'false') ON CONFLICT DO NOTHING;
 insert into line_item (id, sku, rush, order_id) values (9, 'RS-AH27-28', 'false', 7) ON CONFLICT DO NOTHING;
-insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (9, 9, 'Pending', '2.5x7', 7, 2.5, 2) ON CONFLICT DO NOTHING;
+insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (9, 9, 'Pending', '2.5x7', 3.5, 2.5, 2) ON CONFLICT DO NOTHING;

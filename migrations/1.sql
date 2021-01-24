@@ -51,11 +51,11 @@ insert into line_item (id, sku, rush, order_id) values (6, 'RS-DS55-27', 'true',
 insert into line_item (id, sku, rush, order_id) values (7, 'RC-IH17-35', 'false', 5) ON CONFLICT DO NOTHING;
 insert into line_item (id, sku, rush, order_id) values (8, 'RS-AH27-27', 'false', 6) ON CONFLICT DO NOTHING;
 
-insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (1, 1, 'Pending', '2.5x7', 7, 2.5, 2) ON CONFLICT DO NOTHING;
+insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (1, 1, 'Pending', '2.5x7', 3.5, 2.5, 2) ON CONFLICT DO NOTHING;
 insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (2, 2, 'Pending', '5x7', 7, 5, 1) ON CONFLICT DO NOTHING;
-insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (3, 3, 'Pending', '2.5x7', 7, 2.5, 2) ON CONFLICT DO NOTHING;
+insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (3, 3, 'Pending', '2.5x7', 3.5, 2.5, 2) ON CONFLICT DO NOTHING;
 insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (4, 4, 'Pending', '3x5', 5, 3, 1) ON CONFLICT DO NOTHING;
 insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (5, 5, 'Cancelled', '5x7', 7, 5, 1) ON CONFLICT DO NOTHING;
-insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (6, 6, 'Pending', '2.5x7', 7, 2.5, 2) ON CONFLICT DO NOTHING;
+insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (6, 6, 'Pending', '2.5x7', 3.5, 2.5, 2) ON CONFLICT DO NOTHING;
 insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (7, 7, 'Pending', '3x5', 5, 3, 1) ON CONFLICT DO NOTHING;
-insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (8, 8, 'Pending', '2.5x7', 7, 2.5, 2) ON CONFLICT DO NOTHING;
+insert into component (id, line_item_id, status, size, line_item_length, line_item_width, position_width) values (8, 8, 'Pending', '2.5x7', 3.5, 2.5, 2) ON CONFLICT DO NOTHING;

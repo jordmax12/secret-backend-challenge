@@ -44,7 +44,10 @@ class Plan {
     async _runnerFiller(planItem, currentIndex) {
         const totalRunners = this._plan.plan.filter(_pi => _pi.size === "2.5x7");
         const findRunnerIndex = totalRunners.findIndex(r => r.id === planItem.id);
-        const _getNextRunner = await getNextRunner(totalRunners[0].order_date, (totalRunners.length + (findRunnerIndex - 1 > -1 ? findRunnerIndex -1 : 0)) - 1);
+        const findFirstOrderDate = totalRunners.sort((a, b) => {
+            return moment(a.order_date) - moment(b.order_date);
+        })
+        const _getNextRunner = await getNextRunner(findFirstOrderDate[0].order_date, (totalRunners.length + (findRunnerIndex - 1 > -1 ? findRunnerIndex -1 : 0)) - 1);
 
         if(_getNextRunner.length > 0) {
             const { id, size, order_date, sku, rush } = _getNextRunner[0];
@@ -153,7 +156,7 @@ class Plan {
             const findNextRunnerIndex = findNextRunner ? this._plan.plan.findIndex(x => x.id === findNextRunner.id) : this._plan.plan.length;
 
             for(let i = reassignedRunner.index; i < findNextRunnerIndex; i++) {
-                const newPosition = this._plan.plan[i].position - changesInPosition.changes; // - 1 > 0 ? this._plan.plan[i].position - 1 : 1;
+                const newPosition = this._plan.plan[i].position - changesInPosition.changes;
                 this._updateRunnerPosition(i, newPosition);
                 if(this._plan.plan[i].hasChanged) {
                     changesInPosition.currentIndex = i;
