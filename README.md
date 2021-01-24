@@ -8,6 +8,7 @@
 
 # Known Issues
 - So I had to do something a little unconvential to accurately (as accurate as I can) show the roll_length for the current plan. This was difficult for me, based on how I get the available components, we use the length, not width. This was tricky to get over, because technically 2 runners = 7 length. To get around this, I cheated a bit by counting runners at half the length it should. This gave me more accurate lengths, since now it counts runners as 7 for 2. But this isn't perfect and I only did this for time sake. I wonder if I could have done some of this logic easier, but at this point I have spent quite a bit of time on it and I know I was only given around 6 hours.
+- Did not really have much time to do unit tests unfortunately, want to keep within the time period I was allocated.
 
 # If I had more time..
 - I would probably revisit how I ended up getting this data, its definitely trickier than it looks. I think some of the issues I had at the end attributed to how I am  getting data, perhaps. I didn't want to make assumptions, so I wanted to make sure
