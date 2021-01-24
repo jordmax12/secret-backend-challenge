@@ -1,16 +1,6 @@
-// "plan":[
-//     {
-//         "id": 5683,
-//         "position": 1,
-//         "size": "2.5x7",
-//         "order_date": "2020-10-13 04:27:30-07:00",
-//         "sku": "RS-1234-27",
-//         "rush": true
-//     },
-
 class PlanItem {
     constructor(planItemObj) {
-        this._plan = {
+        this._planItem = {
             id: planItemObj.id || null,
             position: planItemObj.position || 0,
             size: planItemObj.size || [],
@@ -21,55 +11,55 @@ class PlanItem {
     }
 
     get id() {
-        return this._plan.id;
+        return this._planItem.id;
     }
 
     set id(id) {
-        this._plan.id = id;
+        this._planItem.id = id;
     }
 
     get position() {
-        return this._plan.position;
+        return this._planItem.position;
     }
 
     set position(position) {
-        this._plan.position = position;
+        this._planItem.position = position;
     }
 
     get size() {
-        return this._plan.size;
+        return this._planItem.size;
     }
 
     set size(size) {
-        this._plan.size = size;
+        this._planItem.size = size;
     }
 
     get order_date() {
-        return this._plan.order_date;
+        return this._planItem.order_date;
     }
 
     set order_date(order_date) {
-        this._plan.order_date = order_date;
+        this._planItem.order_date = order_date;
     }
 
     get sku() {
-        return this._plan.sku;
+        return this._planItem.sku;
     }
 
     set sku(sku) {
-        this._plan.sku = sku;
+        this._planItem.sku = sku;
     }
 
     get rush() {
-        return this._plan.rush;
+        return this._planItem.rush;
     }
 
     set rush(rush) {
-        this._plan.rush = rush;
+        this._planItem.rush = rush;
     }
 
     export() {
-        return this._plan;
+        return this._planItem;
     }
 }
 
