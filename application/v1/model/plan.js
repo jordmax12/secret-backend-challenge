@@ -17,6 +17,7 @@ const getMostRecentByLengthRush = (rollLength) => {
         SELECT * FROM (
             SELECT
                 component.line_item_length,
+                component.id,
                 orders.order_date,
                 component.size,
                 line_item.sku,
@@ -37,6 +38,7 @@ const getMostRecentByLengthNoRush = (rollLength) => {
         SELECT * FROM (
             SELECT
                 component.line_item_length,
+                component.id,
                 orders.order_date,
                 component.size,
                 line_item.sku,
@@ -55,7 +57,7 @@ const getMostRecentByLengthNoRush = (rollLength) => {
 
 const getNextRunnerQueryBuilder = (after_order_date, offset) => {
     return `
-        SELECT * FROM component
+        SELECT component.id, component.size, orders.order_date, line_item.sku, line_item.rush FROM component
         INNER JOIN line_item on line_item.id = component.line_item_id
         INNER JOIN "order" orders on orders.id = line_item.order_id
         where status = 'Pending'
