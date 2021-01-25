@@ -18,6 +18,7 @@ my solution was scalable (as much as it can be). With the data size I was given,
 - Did not really have much time to do unit tests unfortunately, want to keep within the time period I was allocated.
 - Would have been nice to make an OpenAPI file and have the request get validated off that.
 - I think instead of trying to figure out the `roll_length` in SQL, instead essentially just pull down x amount of matches, and keep pulling more until you hit the roll_length, disregard rest. This would have made a lot of my logic simpler, I think. Unfortunately, I didn't realize this until well into my development. But this approach probably would have worked a lot better. 
+- I did not really take SQL injection into consideration here, I could have formatted my query method in my model a little better to address this.
 
 <!-- ## Background
 Secret rugs are made to order. This means that generally speaking we don't stock finished goods and instead we stock raw materials that can be turned into a variety of our products. Our main raw material is a roll of fabric that we print designs on. The length of the roll may vary from roll to roll. 
