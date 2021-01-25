@@ -40,6 +40,7 @@ class Plan {
     overwritePlan(planItems) {
         this._plan.plan = planItems.map((planItem) => new PlanItem(planItem));
     }
+
     // grab a runner from the database.
     // we want to grab the next runner, based on the current planItem.
     // this involves some logic to determine how much to offset in our query, so we
@@ -69,10 +70,12 @@ class Plan {
 
         return null;
     }
+
     // helper function to update a position of a runner.
     _updateRunnerPosition(index, newPosition) {
         this._plan.plan[index].position = newPosition;
     }
+
     // This will find the next runner in plan, if exists.
     _findNextRunnerInPlan(id) {
         const {plan} = this._plan;
@@ -84,6 +87,7 @@ class Plan {
         }
         return null;
     }
+
     // This function will grab the next runner in the plan that was changed.
     // this is useful because we need to know which planItems to increment the position.
     // but we dont want to mess with a position thats been changed already.
@@ -107,6 +111,7 @@ class Plan {
         }
         return nextRunner;
     }
+
     // determines if a planItem needs a runner and if so, will go and find one.
     async _findIfNeedsRunner(planItem, position) {
         if (planItem.size === '2.5x7') {
@@ -118,7 +123,7 @@ class Plan {
                     this._plan.plan[runnerIndex].hasChanged = true;
                     this._plan.plan[runnerIndex].newPosition = position;
                 }
-            // if none exists, try to grab one from database
+                // if none exists, try to grab one from database
             } else {
                 const getRunnerFromDB = await this._runnerFiller(planItem, position);
                 return getRunnerFromDB;
@@ -126,6 +131,7 @@ class Plan {
         }
         return null;
     }
+
     // NOTE: this function got a little long, if i had more time i would try to split it up, or change my logic altogether.
     async hydratePositions() {
         const {plan} = this._plan;
