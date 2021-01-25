@@ -12,8 +12,7 @@ module.exports = (app) => {
         }
 
         response.status(500).send({
-            error: 'Seemingly invalid request, make sure to supply rollLength as a numeric value.',
+            error: 'Seemingly invalid request, make sure to supply roll_length as a numeric value.',
         });
-
     });
 };

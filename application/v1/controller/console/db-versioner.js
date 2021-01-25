@@ -11,14 +11,7 @@ function processSQLFile(fileName) {
     // Extract SQL queries from files. Assumes no ';' in the fileNames
     let queries = fs.readFileSync(fileName).toString();
 
-    let DELIM = ';';
-    // we will treat this migration as if its setting up stored procedures.
-    // in a production setting, it might be good to try to not limit the user
-    // to a migration file only being stored procedures or any other queries, but for
-    // now this will have to do for the sake of time.
-    if (queries.indexOf('CREATE OR REPLACE PROCEDURE') > -1) {
-        DELIM = '$BODY$;';
-    }
+    const DELIM = ';';
 
     queries = queries
         .replace(/(\r\n|\n|\r)/gm, ' ') // remove newlines
@@ -28,7 +21,7 @@ function processSQLFile(fileName) {
         .filter((el) => {
             return el.length !== 0;
         }) // remove any empty ones
-        .map((_query) => _query + DELIM); // add back $BODY$ or ;
+        .map((_query) => _query + DELIM); // add back ;
     return queries;
 }
 
