@@ -133,24 +133,34 @@ class Plan {
     }
 
     // NOTE: this function got a little long, if i had more time i would try to split it up, or change my logic altogether.
+    // I think it was a little ambitious trying to do it this way, with the time allocated.
+    // if I could do over, I think I would grab x amount of items from the DB, and if those
+    // didnt fill the roll_length, then keep asking for more until it does.
+    // that way we can keep a lot of this logic in code thats being done in SQL (roll_length calculation mostly)
     async hydratePositions() {
         const {plan} = this._plan;
         const _plan = plan;
         const runnerFillers = [];
         const reassignedRunners = [];
         for (const [index, planItem] of _plan.entries()) {
+            // determine if this item has been changed (meaning, is this item a runner which has been re-assigned?)
             const hasItemBeenReassigned = this._plan.plan[index].hasChanged;
 
             if (hasItemBeenReassigned) {
                 const cachedItem = this._plan.plan[index];
+                // add to queue, to process later (dont want to mess with the current iterable)
                 reassignedRunners.push({
                     id: cachedItem.id,
                     index,
                     new: this._plan.plan[index].newPosition,
                 });
             } else {
+                // this is not an item that was re-assigned, let's do the groundwork to set it up.
                 const position = index + 1;
                 this._plan.plan[index].position = position;
+                // if anything is returned from this method, we know its a runner who tried to grab a
+                // runner from our current plan, but couldn't. and went to the DB to find one.
+                // meaning, this runner wont be in our plan, and we will need to add later.
                 const foundRunnerInDB = await this._findIfNeedsRunner(planItem, position);
                 if (foundRunnerInDB) {
                     runnerFillers.push({
@@ -161,11 +171,17 @@ class Plan {
                 }
             }
         }
+        // lets keep track of how many changes we make
+        // this will help us calculate the newPosition
+        // of items that need to be adjusted.
+
         const changesInPosition = {
             currentIndex: 0,
             changes: 0,
         };
-
+        // they need to be adjusted if we pulled a runner from our
+        // current plan, meaning, the position we found prior,
+        // wont be accurate anymore, so we need to adjust.
         for (const reassignedRunner of reassignedRunners) {
             this._updateRunnerPosition(reassignedRunner.index, reassignedRunner.new);
             const findNextRunner = this._findNextChangedRunner(reassignedRunner.id);
@@ -173,6 +189,10 @@ class Plan {
                 ? this._plan.plan.findIndex((x) => x.id === findNextRunner.id)
                 : this._plan.plan.length;
 
+            // this for loop will go through all the items from our current position, TO the next runner that has been
+            // changed. This is because we have adjusted a runners position, therefore need to now adjust all the
+            // subsequent items position to reflect this change.
+            // otherwise their position will be +1, or +x more than the actual position
             for (let i = reassignedRunner.index; i < findNextRunnerIndex; i++) {
                 const newPosition = this._plan.plan[i].position - changesInPosition.changes;
                 this._updateRunnerPosition(i, newPosition);
@@ -182,12 +202,13 @@ class Plan {
                 }
             }
         }
-
+        // simple run through of the fillers we had, and just setting its correct
+        // position by finding the position of the item at the index we stored earlier.
         for (const [index, filler] of runnerFillers.entries()) {
             const {position} = this._plan.plan[filler.index];
             runnerFillers[index].data.position = position;
         }
-
+        // just overwrite the current plan to be a concatenation of the two arrays (it will be sorted later)
         this.overwritePlan([...this._plan.plan, ...runnerFillers.map((r) => r.data)]);
     }
 
