@@ -6,6 +6,9 @@
 - npm run hydrate
 - npm start
 
+# Development
+- npm run lint
+
 # Known Issues
 - So I had to do something a little unconvential to accurately (as accurate as I can) show the roll_length for the current plan. This was difficult for me, based on how I get the available components, we use the length, not width. This was tricky to get over, because technically 2 runners = 7 length. To get around this, I cheated a bit by counting runners at half the length it should. This gave me more accurate lengths, since now it counts runners as 7 for 2. But this isn't perfect and I only did this for time sake. I wonder if I could have done some of this logic easier, but at this point I have spent quite a bit of time on it and I know I was only given around 6 hours.
 
@@ -14,6 +17,7 @@
 my solution was scalable (as much as it can be). With the data size I was given, I could have just queried for ALL data, and then did my logic in code. But obviously, if we have tens or even hundreds of thousands of rows, that might get slow/not performant.
 - Did not really have much time to do unit tests unfortunately, want to keep within the time period I was allocated.
 - Would have been nice to make an OpenAPI file and have the request get validated off that.
+- I think instead of trying to figure out the `roll_length` in SQL, instead essentially just pull down x amount of matches, and keep pulling more until you hit the roll_length, disregard rest. This would have made a lot of my logic simpler, I think. Unfortunately, I didn't realize this until well into my development. But this approach probably would have worked a lot better. 
 
 ## Background
 Ruggable rugs are made to order. This means that generally speaking we don't stock finished goods and instead we stock raw materials that can be turned into a variety of our products. Our main raw material is a roll of fabric that we print designs on. The length of the roll may vary from roll to roll. 
