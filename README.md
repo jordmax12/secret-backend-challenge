@@ -1,4 +1,4 @@
-# Ruggable Backend Technical
+# Secret Backend Technical
 
 # Getting Started
 - npm install
@@ -20,7 +20,7 @@ my solution was scalable (as much as it can be). With the data size I was given,
 - I think instead of trying to figure out the `roll_length` in SQL, instead essentially just pull down x amount of matches, and keep pulling more until you hit the roll_length, disregard rest. This would have made a lot of my logic simpler, I think. Unfortunately, I didn't realize this until well into my development. But this approach probably would have worked a lot better. 
 
 ## Background
-Ruggable rugs are made to order. This means that generally speaking we don't stock finished goods and instead we stock raw materials that can be turned into a variety of our products. Our main raw material is a roll of fabric that we print designs on. The length of the roll may vary from roll to roll. 
+Secret rugs are made to order. This means that generally speaking we don't stock finished goods and instead we stock raw materials that can be turned into a variety of our products. Our main raw material is a roll of fabric that we print designs on. The length of the roll may vary from roll to roll. 
 
 There are 3 different sizes of rugs that need to be printed, 2.5x7's (which are considered runners), 3x5's and 5x7's. Below is an example of the orientation of how the rugs would be laid out when printed. 
 <img src='images/PrintedRugLayoutExample.png' />
@@ -133,6 +133,6 @@ There is a `db.sql` file included that will set these tables up with some data t
 ## Other Considerations
 - Feel free to add tables or columns to existing tables.
 - Don't remove any of the existing tables, but if you feel there is a better way to handle a situation, make a note of it.
-- Feel free using a modern popular language that you are comfortable with. We use Node at Ruggable but we are more interested in how you approach solving the problem over the specific language.
+- Feel free using a modern popular language that you are comfortable with. We use Node at {Secret} but we are more interested in how you approach solving the problem over the specific language.
 - Don't worry if you aren't able to fully finish everything in time. Focus mainly on the core logic.
 - Please upload your code to Github and share the link with us. 
